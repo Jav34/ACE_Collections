@@ -1,0 +1,42 @@
+
+
+CREATE COMPUTE MODULE collection_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		CALL CopyMessageHeaders();
+		CALL CopyEntireMessage();
+
+		
+		FOR source AS InputRoot.Collection[] DO
+			CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array);
+			SET OutputRoot.JSON.Data.kontrahenci = InputRoot.Collection;
+		END FOR;
+
+		--WHILE LASTMOVE(customers)= TRUE DO
+			--CREATE FIELD OutputRoot.JSON.Data IDENTITY (JSON.Array)Data;
+			--CREATE LASTCHILD OF OutputRoot.JSON.Data TYPE NameValue NAME 'kontrahenci';
+			--SET OutputRoot.JSON.Data.kontrahenci[i] = customers;
+			--SET i = i + 1;
+			--MOVE customers NEXTSIBLING;
+		--END WHILE;
+		
+			
+						
+		RETURN TRUE;
+	END;
+
+	CREATE PROCEDURE CopyMessageHeaders() BEGIN
+		DECLARE I INTEGER 1;
+		DECLARE J INTEGER;
+		SET J = CARDINALITY(InputRoot.*[]);
+		WHILE I < J DO
+			SET OutputRoot.*[I] = InputRoot.*[I];
+			SET I = I + 1;
+		END WHILE;
+	END;
+
+	CREATE PROCEDURE CopyEntireMessage() BEGIN
+		SET OutputRoot = InputRoot;
+	END;
+END MODULE;
+
