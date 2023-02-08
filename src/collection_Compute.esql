@@ -7,20 +7,15 @@ CREATE COMPUTE MODULE collection_Compute
 		CALL CopyEntireMessage();
 
 		
-		FOR source AS InputRoot.Collection[] DO
-			CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array);
-			SET OutputRoot.JSON.Data.kontrahenci = InputRoot.Collection;
-		END FOR;
-
-		--WHILE LASTMOVE(customers)= TRUE DO
-			--CREATE FIELD OutputRoot.JSON.Data IDENTITY (JSON.Array)Data;
-			--CREATE LASTCHILD OF OutputRoot.JSON.Data TYPE NameValue NAME 'kontrahenci';
-			--SET OutputRoot.JSON.Data.kontrahenci[i] = customers;
-			--SET i = i + 1;
-			--MOVE customers NEXTSIBLING;
-		--END WHILE;
+		DECLARE i INTEGER 1;
+		DECLARE msg1 REFERENCE TO InputRoot.Collection.In2[1].JSON.Data.kontrahent;
+		DECLARE msg2 REFERENCE TO InputRoot.Collection.In2[2].JSON.Data.kontrahent;
+		DECLARE msg3 REFERENCE TO InputRoot.Collection.In2[3].JSON.Data.kontrahent;
 		
-			
+		CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array)kontrahenci;
+		SET OutputRoot.JSON.Data.kontrahenci.[1] = msg1;
+		SET OutputRoot.JSON.Data.kontrahenci.[2] = msg2;
+		SET OutputRoot.JSON.Data.kontrahenci.[3] = msg3;			
 						
 		RETURN TRUE;
 	END;

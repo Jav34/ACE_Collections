@@ -6,10 +6,10 @@
     <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/tarea/icons/full/obj16/przeplyw1.gif"/>
     <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/tarea/icons/full/obj30/przeplyw1.gif"/>
     <composition>
-      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="85,191" inputDirectory="C:\Users\javier.vera\Desktop\Clarite\Samouk\kontrahenci" filenamePattern="*.json" processedFileAction="moveToArchive" messageDomainProperty="JSON" validateTiming="immediate" parserXmlnscMixedContentRetainMode="all">
+      <nodes xmi:type="ComIbmFileInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="85,191" inputDirectory="C:\Users\javier.vera\Desktop\toTarea" filenamePattern="*.json" processedFileAction="moveToArchive" messageDomainProperty="JSON" validateTiming="immediate" parserXmlnscMixedContentRetainMode="all">
         <translation xmi:type="utility:ConstantString" string="File Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="370,208" computeExpression="esql://routine/#propagating.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="370,208" computeExpression="esql://routine/#propagating.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="Compute"/>
       </nodes>
       <nodes xmi:type="ComIbmMQOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="683,194" queueName="QM_JAV_01">

@@ -9,15 +9,15 @@
       <nodes xmi:type="ComIbmMQInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_1" location="216,196" queueName="QM_JAV_01" messageDomainProperty="JSON" validateTiming="immediate" transactionMode="automatic">
         <translation xmi:type="utility:ConstantString" string="MQ Input"/>
       </nodes>
-      <nodes xmi:type="ComIbmCollector.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="428,193" collectionName="MojaKolekcja" collectionExpiry="3" persistenceMode="Persistent">
+      <nodes xmi:type="ComIbmCollector.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="428,193" collectionName="MojaKolekcja" collectionExpiry="600" persistenceMode="Persistent">
         <inTerminals terminalNodeID="In2" dynamic="true" label="In2"/>
         <translation xmi:type="utility:ConstantString" string="Collector"/>
-        <eventHandlerPropertyTable terminal="In2" quantity="3" correlationPath="$Body/Collection" correlationPattern=""/>
+        <eventHandlerPropertyTable terminal="In2" timeout="1" correlationPath="" correlationPattern=""/>
       </nodes>
-      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="641,188" computeExpression="esql://routine/#collection_Compute.Main">
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="641,188" computeExpression="esql://routine/#collection_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="parsing"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="849,191" outputDirectory="C:\Users\javier.vera\Desktop\Clarite\Samouk\fileOutput" outputFilename="kontrahenci2.json" writeMode="writeInPlace" dataLocation="$Body/Collection">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="849,191" outputDirectory="C:\Users\javier.vera\Desktop\fromTarea" outputFilename="kontrahenci2.json">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="434,261" computeExpression="esql://routine/#collection_Catch_error.Main">
