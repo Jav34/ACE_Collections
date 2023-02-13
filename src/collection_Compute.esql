@@ -3,21 +3,34 @@
 CREATE COMPUTE MODULE collection_Compute
 	CREATE FUNCTION Main() RETURNS BOOLEAN
 	BEGIN
-		CALL CopyMessageHeaders();
-		CALL CopyEntireMessage();
+		-- CALL CopyMessageHeaders();
+		-- CALL CopyEntireMessage();
 
 		
-		DECLARE i INTEGER 1;
-		DECLARE msg1 REFERENCE TO InputRoot.Collection.In2[1].JSON.Data.kontrahent;
-		DECLARE msg2 REFERENCE TO InputRoot.Collection.In2[2].JSON.Data.kontrahent;
-		DECLARE msg3 REFERENCE TO InputRoot.Collection.In2[3].JSON.Data.kontrahent;
+		--DECLARE i INTEGER 1;
+		--DECLARE msg1 REFERENCE TO InputRoot.Collection.In2[1].JSON.Data.kontrahent;
+		--DECLARE msg2 REFERENCE TO InputRoot.Collection.In2[2].JSON.Data.kontrahent;
+		--DECLARE msg3 REFERENCE TO InputRoot.Collection.In2[3].JSON.Data.kontrahent;
 		
-		CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array)kontrahenci;
-		SET OutputRoot.JSON.Data.kontrahenci.[1] = msg1;
-		SET OutputRoot.JSON.Data.kontrahenci.[2] = msg2;
-		SET OutputRoot.JSON.Data.kontrahenci.[3] = msg3;			
+		--CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array)kontrahenci;
+		--SET OutputRoot.JSON.Data.kontrahenci.[1] = msg1;
+		--SET OutputRoot.JSON.Data.kontrahenci.[2] = msg2;
+		--SET OutputRoot.JSON.Data.kontrahenci.[3] = msg3;		
+		
+		
+		DECLARE i INTEGER 1;
+		DECLARE x INTEGER 1;
+		DECLARE msgs REFERENCE TO InputRoot.Collection.In2[x].JSON.Data.kontrahent;
+
+		WHILE LASTMOVE(msgs) DO
+			CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array)kontrahenci;
+			SET OutputRoot.JSON.Data.kontrahenci.[i] = msgs;
+			PROPAGATE TO TERMINAL 'out';
+			SET i = i + 1;	
+			MOVE msgs NEXTSIBLING;				
+		END WHILE;		
 						
-		RETURN TRUE;
+		RETURN FALSE;
 	END;
 
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
