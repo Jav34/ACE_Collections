@@ -17,7 +17,7 @@
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_4" location="641,188" computeExpression="esql://routine/#collection_Compute.Main" computeMode="destinationAndMessage">
         <translation xmi:type="utility:ConstantString" string="parsing"/>
       </nodes>
-      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="849,191" outputDirectory="C:\Users\javier.vera\Desktop\fromTarea" outputFilename="kontrahenci2.json" outputMode="append">
+      <nodes xmi:type="ComIbmFileOutput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_6" location="849,191" outputDirectory="C:\Users\javier.vera\Desktop\fromTarea" outputFilename="kontrahenci2.json" outputMode="create">
         <translation xmi:type="utility:ConstantString" string="File Output"/>
       </nodes>
       <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_8" location="434,261" computeExpression="esql://routine/#collection_Catch_error.Main">

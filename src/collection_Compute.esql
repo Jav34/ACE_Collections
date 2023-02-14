@@ -5,32 +5,21 @@ CREATE COMPUTE MODULE collection_Compute
 	BEGIN
 		-- CALL CopyMessageHeaders();
 		-- CALL CopyEntireMessage();
-
-		
-		--DECLARE i INTEGER 1;
-		--DECLARE msg1 REFERENCE TO InputRoot.Collection.In2[1].JSON.Data.kontrahent;
-		--DECLARE msg2 REFERENCE TO InputRoot.Collection.In2[2].JSON.Data.kontrahent;
-		--DECLARE msg3 REFERENCE TO InputRoot.Collection.In2[3].JSON.Data.kontrahent;
-		
-		--CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array)kontrahenci;
-		--SET OutputRoot.JSON.Data.kontrahenci.[1] = msg1;
-		--SET OutputRoot.JSON.Data.kontrahenci.[2] = msg2;
-		--SET OutputRoot.JSON.Data.kontrahenci.[3] = msg3;		
-		
 		
 		DECLARE i INTEGER 1;
-		DECLARE x INTEGER 1;
-		DECLARE msgs REFERENCE TO InputRoot.Collection.In2[x].JSON.Data.kontrahent;
+		DECLARE msgs REFERENCE TO InputRoot.Collection.In2[i].JSON.Data.kontrahent;
 
 		WHILE LASTMOVE(msgs) DO
 			CREATE FIELD OutputRoot.JSON.Data.kontrahenci IDENTITY (JSON.Array)kontrahenci;
-			SET OutputRoot.JSON.Data.kontrahenci.[i] = msgs;
-			PROPAGATE TO TERMINAL 'out';
-			SET i = i + 1;	
-			MOVE msgs NEXTSIBLING;				
-		END WHILE;		
+			SET OutputRoot.JSON.Data.kontrahenci.[i] = msgs;	
+			SET i = i + 1;			
+			MOVE msgs TO InputRoot.Collection.In2[i].JSON.Data.kontrahent;			
+		END WHILE;	
+		
+		-- Ten kod działa tak, że rzuca obiekt 1 i 2. Potem rzuca obiekt 3, oddzielnie. Skleja, ale nie w formacie JSON --
+		-- jest tak: ...kontrahenci: {obiekt 1}, {obiekt 2}, [{kontrahenci:{obiekt 3}] --	
 						
-		RETURN FALSE;
+		RETURN TRUE;
 	END;
 
 	CREATE PROCEDURE CopyMessageHeaders() BEGIN
